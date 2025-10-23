@@ -1,6 +1,9 @@
 import pygame.font
+import json
+from pathlib import Path
 from pygame.sprite import Group
 from ship import Ship
+
 
 class Scoreboard:
     """A clasee to report scoring information."""
@@ -56,6 +59,10 @@ class Scoreboard:
         """Check to see if there's a new high score."""
         if self.stats.score > self.stats.high_score:
             self.stats.high_score = self.stats.score
+            path = Path('high_score.json')
+            contents = json.dumps(self.stats.high_score)
+            path.write_text(contents)
+
             self.prep_high_score()
 
     def prep_level(self):
